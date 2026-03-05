@@ -3,6 +3,7 @@ package composite;
 import composite.enums.ClosingType;
 import composite.enums.DisplayType;
 import composite.flyweight.ElementFlyweight;
+import composite.observer.EventListenerL;
 
 import java.util.*;
 
@@ -16,6 +17,26 @@ public class LightElementNode extends LightNode {
     private final List<String> cssClasses = new ArrayList<>();
     private final List<LightNode> children = new ArrayList<>();
 
+    private final Map<String, List<EventListenerL>> listeners = new HashMap<>();
+
+    public void addEventListener(String eventType, EventListenerL listener) {
+        listeners
+                .computeIfAbsent(eventType, k -> new ArrayList<>())
+                .add(listener);
+    }
+
+    public void triggerEvent(String eventType) {
+
+        System.out.println("Event '" + eventType + "' triggered on <" + tag() + ">");
+
+        List<EventListenerL> eventListeners = listeners.get(eventType);
+
+        if (eventListeners != null) {
+            for (EventListenerL listener : eventListeners)
+                listener.handleEvent(eventType, this);
+
+        }
+    }
 
     public LightElementNode(String tagName,
                             DisplayType displayType,
