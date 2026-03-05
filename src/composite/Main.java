@@ -5,6 +5,7 @@ import composite.enums.DisplayType;
 import composite.flyweight.BookParser;
 import composite.flyweight.ElementFlyweightFactory;
 import composite.flyweight.MemoryCalculator;
+import composite.observer.ClickListener;
 
 import java.util.List;
 
@@ -60,5 +61,13 @@ public class Main {
         System.out.println("Total nodes in tree: " + totalNodes);
         System.out.println("Flyweights created: " +
                 ElementFlyweightFactory.cacheSize());
+
+        System.out.println("\n=== Observer ===");
+
+        ClickListener clickListener = new ClickListener();
+
+        ul.addEventListener("click", clickListener);
+
+        ul.triggerEvent("click");
     }
 }
