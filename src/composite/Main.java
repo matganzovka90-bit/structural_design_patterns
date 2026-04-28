@@ -12,6 +12,8 @@ import composite.iterator.LightIterator;
 import composite.state.DisabledState;
 import composite.state.HiddenState;
 import composite.state.NormalState;
+import composite.visitor.TagCountVisitor;
+import composite.visitor.TextSearchVisitor;
 
 import java.util.List;
 
@@ -117,5 +119,31 @@ public class Main {
         System.out.println(ul.outerHTML());
 
         ul.setState(new NormalState());
+
+        System.out.println("\n=== Visitor: UL ===");
+
+        TagCountVisitor tagVisitor = new TagCountVisitor();
+        ul.accept(tagVisitor);
+        tagVisitor.printStats();
+
+        System.out.println("\n=== Visitor: HTML Tree ===");
+
+        TagCountVisitor tagVisitor2 = new TagCountVisitor();
+
+        for (LightNode root : htmlTree) {
+            root.accept(tagVisitor2);
+        }
+
+        tagVisitor2.printStats();
+
+        TextSearchVisitor searchVisitor = new TextSearchVisitor("Romeo");
+
+        for (LightNode root : htmlTree) {
+            root.accept(searchVisitor);
+        }
+
+        searchVisitor.printResult();
+
+
     }
 }

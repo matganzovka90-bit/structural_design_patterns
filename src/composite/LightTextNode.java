@@ -1,5 +1,7 @@
 package composite;
 
+import composite.visitor.Visitor;
+
 public class LightTextNode extends LightNode {
     private final String text;
 
@@ -15,5 +17,10 @@ public class LightTextNode extends LightNode {
     @Override
     public String innerHTML() {
         return text;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
