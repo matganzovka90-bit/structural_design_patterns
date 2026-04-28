@@ -68,6 +68,9 @@ public class LightElementNode extends LightNode {
         return new BreadthFirstIterator(this);
     }
 
+    public List<String> getClasses() {
+        return cssClasses;
+    }
 
     @Override
     public String innerHTML() {
