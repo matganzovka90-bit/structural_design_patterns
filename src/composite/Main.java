@@ -9,6 +9,9 @@ import composite.flyweight.BookParser;
 import composite.flyweight.ElementFlyweightFactory;
 import composite.flyweight.MemoryCalculator;
 import composite.iterator.LightIterator;
+import composite.state.DisabledState;
+import composite.state.HiddenState;
+import composite.state.NormalState;
 
 import java.util.List;
 
@@ -98,5 +101,21 @@ public class Main {
 
         System.out.println("After undo:");
         System.out.println(ul.outerHTML());
+
+
+        System.out.println("\n=== STATE: Normal ===");
+        System.out.println(ul.outerHTML());
+
+        ul.setState(new HiddenState());
+
+        System.out.println("\n=== STATE: Hidden ===");
+        System.out.println(ul.outerHTML());
+
+        ul.setState(new DisabledState());
+
+        System.out.println("\n=== STATE: Disabled ===");
+        System.out.println(ul.outerHTML());
+
+        ul.setState(new NormalState());
     }
 }
