@@ -6,6 +6,8 @@ import composite.flyweight.ElementFlyweight;
 import composite.iterator.BreadthFirstIterator;
 import composite.iterator.DepthFirstIterator;
 import composite.iterator.LightIterator;
+import composite.state.ElementState;
+import composite.state.NormalState;
 
 import java.util.*;
 
@@ -13,6 +15,8 @@ public class LightElementNode extends LightNode {
     private final String tagName;
     private final DisplayType displayType;
     private final ClosingType closingType;
+
+    private ElementState state = new NormalState();
 
     private final ElementFlyweight flyweight;
 
@@ -72,6 +76,10 @@ public class LightElementNode extends LightNode {
         return cssClasses;
     }
 
+    public void setState(ElementState state) {
+        this.state = state;
+    }
+
     @Override
     public String innerHTML() {
         StringBuilder sb = new StringBuilder();
@@ -81,8 +89,8 @@ public class LightElementNode extends LightNode {
         return sb.toString();
     }
 
-    @Override
-    public String outerHTML() {
+
+    public String renderDefault() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("<").append(tag());
@@ -103,5 +111,10 @@ public class LightElementNode extends LightNode {
         sb.append("</").append(tag()).append(">");
 
         return sb.toString();
+    }
+
+    @Override
+    public String outerHTML() {
+        return state.render(this);
     }
 }
