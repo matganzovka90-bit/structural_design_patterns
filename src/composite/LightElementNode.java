@@ -3,6 +3,9 @@ package composite;
 import composite.enums.ClosingType;
 import composite.enums.DisplayType;
 import composite.flyweight.ElementFlyweight;
+import composite.iterator.BreadthFirstIterator;
+import composite.iterator.DepthFirstIterator;
+import composite.iterator.LightIterator;
 
 import java.util.*;
 
@@ -55,6 +58,14 @@ public class LightElementNode extends LightNode {
 
     public List<LightNode> getChildren() {
         return children;
+    }
+
+    public LightIterator createDFSIterator() {
+        return new DepthFirstIterator(this);
+    }
+
+    public LightIterator createBFSIterator() {
+        return new BreadthFirstIterator(this);
     }
 
 

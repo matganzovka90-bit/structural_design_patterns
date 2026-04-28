@@ -5,6 +5,7 @@ import composite.enums.DisplayType;
 import composite.flyweight.BookParser;
 import composite.flyweight.ElementFlyweightFactory;
 import composite.flyweight.MemoryCalculator;
+import composite.iterator.LightIterator;
 
 import java.util.List;
 
@@ -60,5 +61,24 @@ public class Main {
         System.out.println("Total nodes in tree: " + totalNodes);
         System.out.println("Flyweights created: " +
                 ElementFlyweightFactory.cacheSize());
+
+        System.out.println("\n=== DFS Traversal (ul) ===");
+
+        LightIterator dfs = ul.createDFSIterator();
+
+        while (dfs.hasNext()) {
+            LightNode node = dfs.next();
+            System.out.println(node.outerHTML());
+        }
+
+
+        System.out.println("\n=== BFS Traversal (ul) ===");
+
+        LightIterator bfs = ul.createBFSIterator();
+
+        while (bfs.hasNext()) {
+            LightNode node = bfs.next();
+            System.out.println(node.outerHTML());
+        }
     }
 }
