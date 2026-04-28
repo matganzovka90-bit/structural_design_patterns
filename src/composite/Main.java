@@ -1,5 +1,8 @@
 package composite;
 
+import composite.command.AddClassCommand;
+import composite.command.Command;
+import composite.command.CommandManager;
 import composite.enums.ClosingType;
 import composite.enums.DisplayType;
 import composite.flyweight.BookParser;
@@ -80,5 +83,20 @@ public class Main {
             LightNode node = bfs.next();
             System.out.println(node.outerHTML());
         }
+
+        System.out.println("\n=== Command Pattern ===");
+
+        CommandManager manager = new CommandManager();
+
+        Command addClass = new AddClassCommand(ul, "active");
+        manager.executeCommand(addClass);
+
+        System.out.println("After adding class:");
+        System.out.println(ul.outerHTML());
+
+        manager.undo();
+
+        System.out.println("After undo:");
+        System.out.println(ul.outerHTML());
     }
 }
