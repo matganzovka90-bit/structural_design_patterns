@@ -12,6 +12,8 @@ import composite.iterator.LightIterator;
 import composite.state.DisabledState;
 import composite.state.HiddenState;
 import composite.state.NormalState;
+import composite.template_method.LifecycleTemplate;
+import composite.template_method.LoggingLifecycle;
 import composite.visitor.TagCountVisitor;
 import composite.visitor.TextSearchVisitor;
 
@@ -145,5 +147,11 @@ public class Main {
         searchVisitor.printResult();
 
 
+        System.out.println("\n=== TEMPLATE METHOD (Lifecycle Hooks) ===");
+
+        LifecycleTemplate lifecycle = new LoggingLifecycle();
+        ul.setLifecycle(lifecycle);
+
+        System.out.println(ul.outerHTML());
     }
 }

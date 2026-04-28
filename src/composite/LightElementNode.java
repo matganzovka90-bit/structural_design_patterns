@@ -8,6 +8,8 @@ import composite.iterator.DepthFirstIterator;
 import composite.iterator.LightIterator;
 import composite.state.ElementState;
 import composite.state.NormalState;
+import composite.template_method.LifecycleTemplate;
+import composite.template_method.LoggingLifecycle;
 import composite.visitor.Visitor;
 
 import java.util.*;
@@ -16,6 +18,8 @@ public class LightElementNode extends LightNode {
     private final String tagName;
     private final DisplayType displayType;
     private final ClosingType closingType;
+
+    private LifecycleTemplate lifecycle = new LoggingLifecycle();
 
     private ElementState state = new NormalState();
 
@@ -85,6 +89,10 @@ public class LightElementNode extends LightNode {
         this.state = state;
     }
 
+    public void setLifecycle(LifecycleTemplate lifecycle) {
+        this.lifecycle = lifecycle;
+    }
+
     @Override
     public String innerHTML() {
         StringBuilder sb = new StringBuilder();
@@ -129,6 +137,6 @@ public class LightElementNode extends LightNode {
 
     @Override
     public String outerHTML() {
-        return state.render(this);
+        return lifecycle.render(this);
     }
 }
